@@ -5,11 +5,12 @@ using FitnessCalc.Commons.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
-
-
+using FitnessCalc.Commons.Extensions;
+using FitnessCalc.WebApi.Services.ContractsRefit;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("apisettings.json");
+builder.Logging.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "log.txt"));
 var services = builder.Services;
 
 // Add services to the container.
@@ -22,6 +23,7 @@ services.AddSwagger();
 services.AddHttpClients();
 services.AddRefitClients();
 services.AddTransient<FoodDataService>();
+services.AddTransient<FoodDataCenterService>();
 services.AddTransient<IUserService, UserService>();
 
 services.Configure<ApiSettings>(builder.Configuration.GetSection(nameof(ApiSettings)));

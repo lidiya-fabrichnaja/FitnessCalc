@@ -21,14 +21,29 @@ namespace FitnessCalc.WebApi.Services.ContractsRefit
 
         public async Task<object> GetFoodFromDataCenterAsync(string query)
         {
+            var criteria = new List<int> {
+                1008,
+                1003,
+                1004,
+                1005  //"Carbohydrate, by difference"
+            };
             var result = await _foodDataCenterClient.GetProductFromFoodDataAsync(query, apiKey);
             
             return result.Foods.Select(x => new {
-                x.BrandName,
+                ExtId = x.FdcId,
+                x.ServingSize,
+                // x.ServingSizeUnit,
                 x.Description,
                 x.FoodCategory,
-                Nutrients = x.FoodNutrients
-                            .Where(c => c.NutrientName == "Protein").Select(c=> new {c.NutrientName,c.Value})});
+                IdNutrients = x.FoodNutrients
+                                .Where(c=> criteria.Contains(c.NutrientId))
+                                .Select(n => new {n.NutrientId, n.NutrientName, n.Value, n.UnitName})
+                // Nutrients = x.FoodNutrients
+                //             .Where(c => c.NutrientName == "Protein").Select(c=> new {c.NutrientName,c.Value})
+                            
+            });
+
+           //return result.Foods;
 
         }
     }

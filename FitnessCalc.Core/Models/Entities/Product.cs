@@ -17,6 +17,10 @@ namespace FitnessCalc.Core.Models.Entities
 
         public List<FoodNutrient> Nutrients { get; set; } = new List<FoodNutrient>(1);
 
+        public int FoodCategoryId { get; set; }
+
+        public FoodCategory FoodCategory { get; set; }
+
       
     }
 }

@@ -10,7 +10,7 @@ namespace FitnessCalc.WebApi.Services.ContractsRefit
 {
     public interface IFoodDataCenterClient
     {
-        [Get("fdc/v1/foods/search?query={query}&api_key={apiKey}")]
+        [Get("/fdc/v1/foods/search?query={query}&api_key={apiKey}")]
         Task<FoodData> GetProductFromFoodDataAsync(string query, string apiKey);
 
     }

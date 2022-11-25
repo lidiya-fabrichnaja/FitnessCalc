@@ -18,7 +18,7 @@ namespace FitnessCalc.WebApi.DI
 
                     });
 
-            services.AddRefitClient<IApiTranslate>()
+            services.AddRefitClient<IYandexTranslate>()
                     .ConfigureHttpClient(httpClient =>
                     {
                         httpClient.BaseAddress = new Uri("https://translate.yandex.net/");
