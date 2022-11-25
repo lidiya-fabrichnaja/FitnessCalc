@@ -13,12 +13,17 @@ namespace FitnessCalc.WebApi.DI
         {
             services.AddRefitClient<IFoodDataCenterClient>()
                     .ConfigureHttpClient(httpClient => 
-                        {
-                            httpClient.BaseAddress = new Uri("https://api.nal.usda.gov/");
+                    {
+                        httpClient.BaseAddress = new Uri("https://api.nal.usda.gov/");
 
-                        });
+                    });
 
-            
+            services.AddRefitClient<IApiTranslate>()
+                    .ConfigureHttpClient(httpClient =>
+                    {
+                        httpClient.BaseAddress = new Uri("https://translate.yandex.net/");
+                    });
+
             return services;
         }   
     }

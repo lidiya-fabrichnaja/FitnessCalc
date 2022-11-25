@@ -23,7 +23,7 @@ namespace FitnessCalc.WebApi.Controllers.V1
         //[Authorize]
         [AllowAnonymous]
         [HttpGet(Name = "GetFoodData")]
-        [ProducesResponseType(typeof(AppResponce<FoodData>), 200)]
+        //[ProducesResponseType(typeof(AppResponce<FoodData>), 200)]
         public async Task<IActionResult> Get(string query)
         {
             var result = await _service.GetProductFromFoodDataAsync(query);

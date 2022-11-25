@@ -16,7 +16,7 @@ namespace FitnessCalc.WebApi.Services
   
         string apiKey;
 
-        public FoodDataService(IHttpClientFactory httpClientFactory, IOptions<FoodDataSettings> foodSettings, IConfiguration appConfig)
+        public FoodDataService(IHttpClientFactory httpClientFactory, IOptions<FoodDataSettings> foodSettings)
         {
             _httpClientFactory = httpClientFactory;
                      
@@ -50,7 +50,12 @@ namespace FitnessCalc.WebApi.Services
 
             var response = await httpResponseMessage.Content.ReadFromJsonAsync<FoodData>();
             
-            return response.Foods.Select(x => new {x.BrandName,x.Description,x.FoodCategory,Nutrients = x.FoodNutrients.Where(c => c.NutrientName == "Protein").Select(c=> new {c.NutrientName,c.Value})});
+            return response.Foods.Select(x => new {
+                x.BrandName,
+                x.Description,
+                x.FoodCategory,
+                Nutrients = x.FoodNutrients
+                            .Where(c => c.NutrientName == "Protein").Select(c=> new {c.NutrientName,c.Value})});
 
             //return response ?? new FoodData();
         }
